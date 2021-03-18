@@ -2,7 +2,7 @@ const { Router } = require('express');
 const axios = require('axios');
 
 const pokemon =  Router();
-const link = process.env.link;
+const link = process.env.pokemonLink;
 
 pokemon.get("/:pokeName", async (req, res) => {
     try {
