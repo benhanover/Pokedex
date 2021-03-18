@@ -10,7 +10,7 @@ pokemon.get("/:pokeName", async (req, res) => {
     const { data } = await axios.get(link+`/pokemon/${pokeName}`);
     const { height, weight, name, id, sprites, types } = data;
     const { back_default, front_default } = sprites;
-    const testObj = { height, weight, name, id, back_default, front_default, types: types.map((type)=> type.type)};
+    const testObj = { name, height, weight, id, back_default, front_default, types: types.map((type)=> type.type.name)};
     res.json(testObj);
     } catch(error){
         res.status(404).json({error:  error.message, success: false});
