@@ -3,7 +3,7 @@ import PokemonCard from "./PokemonCard";
 import '../styles/SearchArea.css';
 
 
-export default function SearchArea({getTypeList, getPokemon, changeInputStr, pokemon}) {
+export default function SearchArea({getTypeList, getPokemon, changeInputStr, pokemon, buttonText, addOrRelease}) {
 
  
     return (
@@ -13,7 +13,7 @@ export default function SearchArea({getTypeList, getPokemon, changeInputStr, pok
                 <input onChange={changeInputStr} className="search-input" placeholder="Look for a pokemon"></input>
                 <button className="search-button" onClick={getPokemon}>Search</button>
             </div>
-            <PokemonCard pokemon={pokemon} getTypeList={getTypeList}/>
+            <PokemonCard pokemon={pokemon} getTypeList={getTypeList} buttonText={buttonText} addOrRelease={addOrRelease} />
         </div>
     )
 }

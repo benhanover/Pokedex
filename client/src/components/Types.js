@@ -3,7 +3,7 @@ import React from 'react'
 export default function Types({typeList, getPokemonByTypes}) {
 
 
-  const newArr = typeList.map(type => <li onClick={getPokemonByTypes}>{type.pokemon.name}</li>);
+  const newArr = typeList.map((type, index) => <li key={index} onClick={getPokemonByTypes}>{type.pokemon.name}</li>);
     
 
 
