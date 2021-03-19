@@ -2,22 +2,21 @@ import React,{useState} from 'react';
 import '../styles/PokemonCard.css';
 import axios from 'axios';
 
-export default function PokemonCard({pokemon}) {
+export default function PokemonCard({pokemon, getTypeList}) {
 
-    const [typeList, setTypeList] = useState([]);
+    // const [typeList, setTypeList] = useState([]);
 
-    async function  getTypeList (e) {
-        const type = e.target.innerText;
-        const res = await axios.get(`http://localhost:9000/api/type/${type}`);
-        setTypeList(res.data);
-    }
+    // async function  getTypeList (e) {
+    //     const type = e.target.innerText;
+    //     const res = await axios.get(`http://localhost:9000/api/type/${type}`);
+    //     setTypeList(res.data);
+    // }
 
     const { name, height, weight, id, back_default, front_default, types } = pokemon;
     const handledTypes = types.map(t => {
          return <span onClick={getTypeList}>{t}</span>;
     });
 
-    console.log(typeList);
     return (
         
             <div className={'card'}> 
