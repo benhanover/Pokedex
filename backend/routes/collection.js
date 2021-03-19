@@ -1,7 +1,6 @@
 require('dotenv').config();
 const { Router } = require('express');
 const collection =  Router();
-const mongoose = require("mongoose");
 const Pokemon = require('../mongo.js');
 
 const collectionList = [{
@@ -41,7 +40,7 @@ collection.post('/catch', async (req, res) => {
   try {
     await pokemonToAdd.save();
     collectionList.push(body);
-    return res.status(200).json(collectionList);
+    return res.status(200).json({message: 'Added Succesfully'});
   } catch (e) {
       return res.status(500).json({error: "Figure what error"});
   }
@@ -56,15 +55,6 @@ collection.delete('/release/:id', async (req, res) => {
   } catch (e) {
       return res.status(500).json({error: "Figure what error"});
   }
-
-
-  // const index = collectionList.findIndex(pokemon => pokemon.id === id);
-  // if(index === -1) {
-  //   return res.status(404).json({error: "This pokemon is not in your collection", success: false});
-  // } else {
-  //   collectionList.splice(index, 1);
-  //   res.status(200).json(collectionList);
-  // }
 });
 
 
