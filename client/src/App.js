@@ -50,6 +50,7 @@ function App() {
     const pokemon = e.target.innerText;
     axios.get(`http://localhost:9000/api/pokemon/${pokemon}`)
       .then((res) => setPokemon(res.data));
+      setTypeList([]);
   }
 
   return(

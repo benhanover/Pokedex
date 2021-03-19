@@ -1,7 +1,7 @@
-import React,{useState} from 'react';
+import React from 'react';
 import PokemonCard from "./PokemonCard";
 import '../styles/SearchArea.css';
-import axios from "axios";
+
 
 export default function SearchArea({getTypeList, getPokemon, changeInputStr, pokemon}) {
 
