@@ -12,7 +12,7 @@ function App() {
 
   useEffect(() => {
     async function fetchCollection() {
-      const res = await axios.get("http://localhost:9000/api/collection");
+      const res = await axios.get("/api/collection");
       setCollection(res.data);
     }
     fetchCollection();
@@ -23,14 +23,12 @@ function App() {
     if (isExist) {
       const { id } = pokemon;
       try {
-        await axios.delete(
-          `http://localhost:9000/api/collection/release/${id}`
-        );
+        await axios.delete(`/api/collection/release/${id}`);
       } catch (e) {
         alert(e);
       }
       try {
-        const temp = await axios.get(`http://localhost:9000/api/collection`);
+        const temp = await axios.get(`/api/collection`);
         setCollection(temp.data);
       } catch (e) {
         alert(e);
@@ -42,7 +40,7 @@ function App() {
       }
     } else {
       try {
-        await axios.post("http://localhost:9000/api/collection/catch", {
+        await axios.post("/api/collection/catch", {
           name: pokemon.name,
           height: pokemon.height,
           weight: pokemon.weight,
@@ -91,7 +89,7 @@ function App() {
   async function getPokemon() {
     const pokemon = inputStr;
     axios
-      .get(`http://localhost:9000/api/pokemon/${pokemon}`)
+      .get(`/api/pokemon/${pokemon}`)
       .then((res) => {
         setErrorMessage("");
         setIsHidden(true);
@@ -110,16 +108,14 @@ function App() {
 
   async function getTypeList(e) {
     const type = e.target.innerText;
-    const res = await axios.get(`http://localhost:9000/api/type/${type}`);
+    const res = await axios.get(`/api/type/${type}`);
     setTypeList(res.data);
   }
 
   async function getPokemonByTypes(e) {
     const pokemon = e.target.innerText;
     nameTheButton(pokemon);
-    axios
-      .get(`http://localhost:9000/api/pokemon/${pokemon}`)
-      .then((res) => setPokemon(res.data));
+    axios.get(`/api/pokemon/${pokemon}`).then((res) => setPokemon(res.data));
     setTypeList([]);
   }
 
