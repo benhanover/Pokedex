@@ -113,19 +113,32 @@ function App() {
   const [typeList, setTypeList] = useState([]);
 
 
-//   async function getPicture(url){
-//     const res = await axios.get(url);
-//     const newLink = res.data.sprites.front_default;
-//     return newLink;
-// } 
+  async function getPicture(url){
+    const res = await axios.get(url);
+    const newLink = res.data.sprites.front_default;
+    return newLink;
+} 
 
-//   async function getTypeListImagesUrl(urlList) {
+    async function getTypeListImagesUrl(urlList) {
+    // // 1
+    // const tempArr = await (urlList.map(async (type) => await getPicture(type.pokemon.url)));
+    // console.log(tempArr);
+    // setTypeList(tempArr);
 
-//     setTypeList(await typeList.map((type, index) => {
-//       return getPicture(type.pokemon.url)
-//       .then((url) => url)
-//   }));
-//   }
+    // 2
+    setTypeList(urlList.map((type) => {
+      return getPicture(type.pokemon.url)
+      .then((url) => url)
+        .then((data) => {
+          // console.log(data);
+          return(data);
+        })
+    }))
+
+  
+   }
+
+
 
   async function getTypeList (e) {
     const type = e.target.innerText;
@@ -144,9 +157,13 @@ function App() {
 
   return(
     <>
-      <SearchArea getTypeList={getTypeList} getPokemon={getPokemon} changeInputStr={changeInputStr} pokemon={pokemon} buttonText={buttonText} addOrRelease={addOrRelease}/>
-      <Collection collection={collection} addOrRelease={addOrRelease} getTypeList={getTypeList} />
-      <Types typeList={typeList} getPokemonByTypes={getPokemonByTypes} />
+      <div className={'first-section'}>
+        <SearchArea getTypeList={getTypeList} getPokemon={getPokemon} changeInputStr={changeInputStr} pokemon={pokemon} buttonText={buttonText} addOrRelease={addOrRelease}/>
+        <Collection collection={collection} addOrRelease={addOrRelease} getTypeList={getTypeList} />
+      </div>
+      <div>
+        <Types typeList={typeList} getPokemonByTypes={getPokemonByTypes} />
+      </div>
     </>
   ); 
 }
