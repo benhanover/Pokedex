@@ -3,10 +3,9 @@ import axios from "axios";
 import PokemonCard from "../components/PokemonCard";
 import '../styles/Collection.css';
 
-export default function Collection({ collection, addOrRelease }) {
-  console.log(collection);
+export default function Collection({ collection, addOrRelease, getTypeList }) {
   const elementCollection = collection.map((pokemon, index) => {
-    return <PokemonCard key={index} pokemon={pokemon} buttonText={'release'} addOrRelease={addOrRelease} />
+    return <PokemonCard key={index} pokemon={pokemon} buttonText={'release'} addOrRelease={addOrRelease} getTypeList={getTypeList} />
   });
   
   

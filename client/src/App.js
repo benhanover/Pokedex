@@ -18,7 +18,6 @@ function App() {
     async function fetchCollection() {
       const res = await axios.get('http://localhost:9000/api/collection');
       setCollection(res.data); 
-      console.log(collection);
     }
     fetchCollection();
   }, []); 
@@ -87,33 +86,25 @@ function App() {
 
   //!SearchArea
   
-  // const mock = {
-  //   name: "rayquaza",
-  //   height: 7,
-  //   weight: 2065,
-  //   id: 384,
-  //   back_default: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/384.png",
-  //   front_default: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/384.png",
-  //   types: [
-  //     'dragon',
-  //     'flying'
-  //   ]
-  // }
-  
-  const [inputStr, setInputStr] = useState('');
+  let inputStr;
+  // const [inputStr, setInputStr] = useState('');
   const [pokemon, setPokemon] = useState('');
 
       
 
   const changeInputStr = async (e) =>{
-      setInputStr(e.target.value);
+      // setInputStr(e.target.value);
+      if (!e) {
+        return;
+      }
+      inputStr = e.target.value;
   }
 
   async function getPokemon() {
       const pokemon = inputStr;
       axios.get(`http://localhost:9000/api/pokemon/${pokemon}`)
-      .then((res) => setPokemon(res.data));
-      console.log(pokemon);
+      .then((res) => setPokemon(res.data))
+      .catch((e) => alert('could not find this pokemon'));
       nameTheButton(pokemon);
   }
 
@@ -121,10 +112,26 @@ function App() {
 
   const [typeList, setTypeList] = useState([]);
 
+
+//   async function getPicture(url){
+//     const res = await axios.get(url);
+//     const newLink = res.data.sprites.front_default;
+//     return newLink;
+// } 
+
+//   async function getTypeListImagesUrl(urlList) {
+
+//     setTypeList(await typeList.map((type, index) => {
+//       return getPicture(type.pokemon.url)
+//       .then((url) => url)
+//   }));
+//   }
+
   async function getTypeList (e) {
     const type = e.target.innerText;
     const res = await axios.get(`http://localhost:9000/api/type/${type}`);
     setTypeList(res.data);
+    // getTypeListImagesUrl(res.data);
   }
 
   async function getPokemonByTypes(e){
@@ -138,69 +145,10 @@ function App() {
   return(
     <>
       <SearchArea getTypeList={getTypeList} getPokemon={getPokemon} changeInputStr={changeInputStr} pokemon={pokemon} buttonText={buttonText} addOrRelease={addOrRelease}/>
-      <Collection collection={collection} addOrRelease={addOrRelease}  />
+      <Collection collection={collection} addOrRelease={addOrRelease} getTypeList={getTypeList} />
       <Types typeList={typeList} getPokemonByTypes={getPokemonByTypes} />
     </>
   ); 
 }
 export default App;
 
-
-
-
-
-
-
-
-
-
-
-
-
-// class App extends Component{
-
-    
-
-//   constructor(props){
-//     super(props);
-//     this.state = {
-//       collection: [],
-//       typeList: []
-//     };
-//   }
-
-//   async getTypeList (e) {
-//     const type = e.target.innerText;
-//     const res = await axios.get(`http://localhost:9000/api/type/${type}`);
-//     this.setState({typeList: res.data});
-// }
-
-
-//   render() {
-//       return(
-//         <>
-//           <SearchArea getTypeList={this.getTypeList} />
-//           {/* <Collection /> */}
-//           <Types typeList={this.state.typeList}/>
-//         </>
-//       );    
-//   }
-// }
-
-// export default App;
-
-
-
-
-
-
-
-
- //   return (
-  //     <div>
-  //       <ul>
-  //        {this.state.collection.map(poke => {
-  //          return (<li>{poke.name}</li>)
-  // })}
-  //       </ul>
-  //     </div>
