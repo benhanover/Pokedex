@@ -82,7 +82,6 @@ function App() {
   const [pokemon, setPokemon] = useState("");
 
   const changeInputStr = async (e) => {
-    // setInputStr(e.target.value);
     if (!e) {
       return;
     }
@@ -109,25 +108,10 @@ function App() {
 
   const [typeList, setTypeList] = useState([]);
 
-  //   async function getPicture(url){
-  //     const res = await axios.get(url);
-  //     const newLink = res.data.sprites.front_default;
-  //     return newLink;
-  // }
-
-  //   async function getTypeListImagesUrl(urlList) {
-
-  //     setTypeList(await typeList.map((type, index) => {
-  //       return getPicture(type.pokemon.url)
-  //       .then((url) => url)
-  //   }));
-  //   }
-
   async function getTypeList(e) {
     const type = e.target.innerText;
     const res = await axios.get(`http://localhost:9000/api/type/${type}`);
     setTypeList(res.data);
-    // getTypeListImagesUrl(res.data);
   }
 
   async function getPokemonByTypes(e) {
