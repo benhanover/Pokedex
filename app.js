@@ -6,9 +6,10 @@ const path = require('path');
 
 app.use(express.json());
 app.use("/api", api);
+app.use(express.static('./client/public'))
 
 app.get("/", (req, res) => {
-  res.send("WELCOME PORT 9000")
+  res.sendFile(__dirname + '/index.html');
 });
 
 

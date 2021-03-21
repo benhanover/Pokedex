@@ -9,6 +9,8 @@ export default function SearchArea({
   pokemon,
   buttonText,
   addOrRelease,
+  errorMessage,
+  isHidden,
 }) {
   return (
     <div className="search-area">
@@ -23,6 +25,7 @@ export default function SearchArea({
           Search
         </button>
       </div>
+      <div className="error-message" hidden={isHidden}>{`${errorMessage}`}</div>
       <PokemonCard
         mainDiv="searched-card"
         buttonClass="button-class"
