@@ -106,16 +106,26 @@ function App() {
 
   const [typeList, setTypeList] = useState([]);
 
+
+  function convertTypeListToImg(urlList) {
+    Promise.all(
+     urlList.map((url) => {
+        return axios.get(url)
+        .then(({ data }) => ({img: data.sprites.front_default, name: data.name}))
+      })
+    ).then((imgList) => setTypeList(imgList)) 
+  }
+
   async function getTypeList(e) {
     const type = e.target.innerText;
     const res = await axios.get(`/api/type/${type}`);
-    setTypeList(res.data);
+    const urlList = res.data.map(value => value.pokemon.url);
+    convertTypeListToImg(urlList);
   }
 
-  async function getPokemonByTypes(e) {
-    const pokemon = e.target.innerText;
-    nameTheButton(pokemon);
-    axios.get(`/api/pokemon/${pokemon}`).then((res) => setPokemon(res.data));
+  async function getPokemonByTypes(name) {
+    nameTheButton(name);
+    axios.get(`/api/pokemon/${name}`).then((res) => setPokemon(res.data));
     setTypeList([]);
   }
   
